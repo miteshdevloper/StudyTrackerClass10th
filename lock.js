@@ -42,6 +42,6 @@
 
   lock.addEventListener('click', () => {
     if (mobileUnlockMode) {
-      window.location.href = 'C:/Users/HP/Desktop/web and games/web based projects/STUDTYTRACKER/jounral.html';
+      window.location.href = 'jounral.html';
     }
   });
