@@ -1,18 +1,50 @@
 const defaultChapters = [
-  { id: 'real', title: 'Real Numbers', parts: ['Euclid\'s Division Lemma', 'Fundamental Theorem of Arithmetic', 'Decimal Representation of Rational Numbers'] },
-  { id: 'poly', title: 'Polynomials', parts: ['Zeroes of a Polynomial', 'Relationship Between Zeroes and Coefficients', 'Division Algorithm for Polynomials'] },
-  { id: 'linear', title: 'Pair of Linear Equations in Two Variables', parts: ['Graphical Solution', 'Algebraic Solution: Substitution', 'Algebraic Solution: Elimination', 'Conditions for Existence of Solutions'] },
-  { id: 'quad', title: 'Quadratic Equations', parts: ['Solution by Factorization', 'Solution by Quadratic Formula', 'Discriminant and Nature of Roots'] },
-  { id: 'ap', title: 'Arithmetic Progressions', parts: ['General Term of an AP', 'Sum of First n Terms', 'Word Problems on AP'] },
-  { id: 'tri', title: 'Triangles', parts: ['Similarity of Triangles', 'Criteria for Similarity', 'Areas of Similar Triangles', 'Pythagorean Theorem'] },
-  { id: 'coord', title: 'Coordinate Geometry', parts: ['Distance Formula', 'Section Formula', 'Area of Triangle', 'Concept of Slope'] },
-  { id: 'trig', title: 'Introduction to Trigonometry', parts: ['Trigonometric Ratios of Acute Angles', 'Trigonometric Identities', 'Trig Ratios of Complementary Angles'] },
-  { id: 'apptrig', title: 'Some Applications of Trigonometry', parts: ['Heights and Distances Problems'] },
-  { id: 'circ', title: 'Circles', parts: ['Tangents to a Circle', 'Number of Tangents from a Point', 'Related Theorems'] },
-  { id: 'area', title: 'Areas Related to Circles', parts: ['Areas of Sectors', 'Areas of Segments', 'Combined Plane Figures'] },
-  { id: 'svol', title: 'Surface Areas and Volumes', parts: ['Surface Areas of Solids', 'Volumes of Solids', 'Combinations of Solids'] },
-  { id: 'stats', title: 'Statistics', parts: ['Mean of Grouped/Ungrouped Data', 'Median', 'Mode', 'Cumulative Frequency Graph'] },
-  { id: 'prob', title: 'Probability', parts: ['Basic Probability Concepts', 'Simple Probability Problems'] }
+  { id: 'real', title: 'Number Systems', parts: [
+    'Fundamental Theorem of Arithmetic',
+    'Proofs of Irrationality (√2, √3, √5)'
+  ]},
+  { id: 'poly', title: 'Polynomials', parts: [
+    'Zeros of a Polynomial',
+    'Relationship Between Zeros and Coefficients'
+  ]},
+  { id: 'linear', title: 'Pair of Linear Equations in Two Variables', parts: [
+    'Graphical Method & Consistency',
+    'Substitution Method',
+    'Elimination Method',
+    'Word Problems'
+  ]},
+  { id: 'quad', title: 'Quadratic Equations', parts: [
+    'Factorization Method',
+    'Quadratic Formula',
+    'Discriminant & Nature of Roots',
+    'Real‑life Word Problems'
+  ]},
+  { id: 'coord', title: 'Coordinate Geometry', parts: [
+    'Distance Formula',
+    'Section (Internal Division) Formula',
+    'Graphs of Linear Equations'
+  ]},
+  { id: 'geometry', title: 'Geometry', parts: [
+    'Similarity of Triangles',
+    'Criteria for Similarity',
+    'Tangent to a Circle'
+  ]},
+  { id: 'trig', title: 'Trigonometry', parts: [
+    'Trigonometric Ratios of Acute Angles',
+    'Proof of Ratios at 0°, 30°, 45°, 60°',
+    'Identity sin²A + cos²A = 1'
+  ]},
+  { id: 'apptrig', title: 'Heights and Distances', parts: [
+    'Simple Height & Distance Problems (≤ 2 triangles, angles 30°, 45°, 60°)'
+  ]},
+  { id: 'mensuration', title: 'Mensuration', parts: [
+    'Areas of Sectors & Segments (60°, 90°, 120°)',
+    'Surface Areas & Volumes of Sphere, Hemisphere, Cylinder, Cone'
+  ]},
+  { id: 'stats', title: 'Statistics & Probability', parts: [
+    'Mean of Grouped Data',
+    'Classical Probability – Simple Problems'
+  ]}
 ];
 
 const container = document.getElementById('chapters');
@@ -22,6 +54,7 @@ function getTodayDateString() {
   return now.toISOString().split("T")[0];
 }
 
+// Create sections
 defaultChapters.forEach((chap) => {
   const section = document.createElement('section');
   section.innerHTML = `
@@ -56,7 +89,7 @@ defaultChapters.forEach((chap) => {
   });
 });
 
-// Checkbox event handling + load state
+// Load checkbox state + handle change
 document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
   const key = cb.dataset.id;
   if (localStorage.getItem(key)) cb.checked = true;
@@ -119,4 +152,37 @@ function showReward() {
   setTimeout(() => { reward.style.opacity = '1'; }, 10);
   setTimeout(() => { reward.style.opacity = '0'; }, 2500);
   setTimeout(() => { reward.remove(); }, 3000);
+}
+
+// Editable <h2> and <td>
+document.addEventListener('click', (e) => {
+  const target = e.target;
+
+  // Only make editable if it's a chapter title or part name cell
+  if (target.tagName === 'H2' || (target.tagName === 'TD' && target.cellIndex === 0)) {
+    makeEditable(target);
+  }
+});
+
+function makeEditable(element) {
+  const originalText = element.textContent;
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = originalText;
+  input.style.width = '100%';
+  input.style.fontSize = 'inherit';
+
+  element.replaceWith(input);
+  input.focus();
+
+  input.addEventListener('blur', () => {
+    const newText = input.value.trim() || originalText;
+    const newEl = document.createElement(element.tagName);
+    newEl.textContent = newText;
+    input.replaceWith(newEl);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') input.blur();
+  });
 }
