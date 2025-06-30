@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/pjonural.css">
+  <title>Student Journal</title>
+</head>
+<body>
+  <!-- Glowing Floating Circles -->
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+
+  <main>
+    <h1>Student Journal</h1>
+    <textarea id="entry" placeholder="Write your thoughts here..."></textarea>
+    <button onclick="submitEntry()">Submit Entry</button>
+    <div class="quote" id="quoteBox"></div>
+
+    <div class="entries-section">
+      <h2>Past Entries</h2>
+      <div id="entriesList"></div>
+    </div>
+  </main>
+
+  <!-- Modal for Editing -->
+  <div id="entryModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="modalDate"></h3>
+      <textarea id="modalText"></textarea>
+      <div class="quote" id="modalQuote"></div>
+      <button onclick="saveEditedEntry()">Save Changes</button>
+    </div>
+  </div>
+
+  <script>
+    const quotes = {
+      stress: [
+        "Keep breathing. You're going to be okay.",
+        "You don’t have to control your thoughts. Just stop letting them control you.",
+        "Relax. You’ve survived 100% of your worst days."
+      ],
+      happy: [
+        "Smile — it's free therapy.",
+        "Enjoy the little things.",
+        "Happiness is a habit, not a result."
+      ],
+      study: [
+        "One step at a time gets you there.",
+        "Discipline is the bridge between goals and achievement.",
+        "You don’t have to be perfect, just consistent."
+      ],
+      default: [
+        "Keep going, you're doing great.",
+        "Every effort counts.",
+        "Today is another chance to grow.",
+        "Progress is progress, no matter how small.",
+        "Some days you're the storm, some days you're the shelter.",
+        "You're allowed to be both a masterpiece and a work in progress.",
+        "Start where you are. Use what you have. Do what you can.",
+        "Little steps lead to big changes.",
+        "You’re stronger than you think.",
+        "Everything you write today matters — to you."
+      ]
+    };
+
+    function formatDate(dateObj) {
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      return dateObj.toLocaleDateString('en-GB', options);
+    }
+
+    function getCategory(text) {
+      const lower = text.toLowerCase();
+      if (lower.includes("stress") || lower.includes("tired") || lower.includes("pressure")) return "stress";
+      if (lower.includes("happy") || lower.includes("joy")) return "happy";
+      if (lower.includes("study") || lower.includes("test") || lower.includes("school")) return "study";
+      return "default";
+    }
+
+    function getQuote(text) {
+      const category = getCategory(text);
+      const list = quotes[category];
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function submitEntry() {
+      const text = document.getElementById('entry').value.trim();
+      if (!text) return;
+      const date = new Date();
+      const quote = getQuote(text);
+      const entry = { date: formatDate(date), text, quote };
+      const journal = JSON.parse(localStorage.getItem("studentJournal") || "[]");
+      journal.unshift(entry);
+      localStorage.setItem("studentJournal", JSON.stringify(journal));
+      document.getElementById('entry').value = '';
+      document.getElementById("quoteBox").textContent = `"${quote}"`;
+      renderEntries();
+    }
+
+    function renderEntries() {
+      const entries = JSON.parse(localStorage.getItem("studentJournal") || "[]");
+      const container = document.getElementById("entriesList");
+      container.innerHTML = "";
+      entries.forEach((entry, index) => {
+        const p = document.createElement("p");
+        p.textContent = `[${entry.date}] ${entry.text.slice(0, 50)}...`;
+        p.onclick = () => openModal(index);
+        container.appendChild(p);
+      });
+    }
+
+    let currentEditIndex = -1;
+    function openModal(index) {
+      const journal = JSON.parse(localStorage.getItem("studentJournal") || "[]");
+      currentEditIndex = index;
+      document.getElementById("modalDate").textContent = journal[index].date;
+      document.getElementById("modalText").value = journal[index].text;
+      document.getElementById("modalQuote").textContent = `\"${journal[index].quote || getQuote(journal[index].text)}\"`;
+      document.getElementById("entryModal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("entryModal").style.display = "none";
+    }
+
+    function saveEditedEntry() {
+      const journal = JSON.parse(localStorage.getItem("studentJournal") || "[]");
+      const updatedText = document.getElementById("modalText").value.trim();
+      const updatedQuote = getQuote(updatedText);
+      journal[currentEditIndex].text = updatedText;
+      journal[currentEditIndex].quote = updatedQuote;
+      localStorage.setItem("studentJournal", JSON.stringify(journal));
+      renderEntries();
+      closeModal();
+    }
+
+    document.addEventListener("mousemove", e => {
+      const cursor = document.getElementById("cursor");
+      cursor.style.left = e.clientX + "px";
+      cursor.style.top = e.clientY + "px";
+    });
+
+    renderEntries();
+  </script>
+</body>
+</html>

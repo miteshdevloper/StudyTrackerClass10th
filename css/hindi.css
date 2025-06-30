@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff8f0; /* warm, soft orange-tinted bg */
+  margin: 0;
+  padding: 10px;
+}
+
+main {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.2); /* soft orange glow */
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #e65100; /* deep orange */
+}
+
+h2 {
+  font-size: 16px;
+  margin-top: 20px;
+  color: #fb8c00; /* lighter orange */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+th, td {
+  border: 1px solid #ffcc80; /* soft orange border */
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: linear-gradient(135deg, #f57c00, #ef6c00);
+  color: #fff;
+}
+
+td {
+  background: #fffaf0; /* very light orange for subtle contrast */
+}
+
+.progress-container {
+  background: #ffe0b2; /* pale orange */
+  border-radius: 5px;
+  overflow: hidden;
+  height: 16px;
+  margin-bottom: 5px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #ff9800, #f57c00);
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s ease;
+  color: white;
+  text-align: center;
+  line-height: 16px;
+  font-size: 10px;
+}
+
+button, .btn {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+
+button:hover, .btn:hover {
+  background: #fb8c00;
+}
+
+/* Add subtle row hover */
+tr:hover td {
+  background: #fff3e0;
+}

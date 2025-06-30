@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>7-Day Subject Progress Bar Graph</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    background: #f0f4f8;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  #chart-container {
+    max-width: 900px;
+    margin: auto;
+  }
+  .subject-row {
+    margin-bottom: 40px;
+  }
+  .subject-name {
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+  }
+  .bars {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    height: 160px;
+    border-left: 2px solid #aaa;
+    border-bottom: 2px solid #aaa;
+    padding-left: 10px;
+    position: relative;
+  }
+  .bar {
+    flex: 1 1 0;
+    max-width: 40px;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    transition: height 0.5s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .bar:hover::after {
+    content: attr(data-count);
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .day-label-top {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+    user-select: none;
+    color: #222;
+  }
+  .days-labels {
+    max-width: 900px;
+    margin: 5px auto 30px auto;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    font-weight: 600;
+    color: #555;
+  }
+  .day-label {
+    flex: 1 1 0;
+    max-width: 40px;
+    text-align: center;
+    user-select: none;
+  }
+  /* Subject colors */
+  .subject-science { background: #4caf50; }
+  .subject-history { background: #f44336; }
+  .subject-geography { background: #2196f3; }
+  .subject-civics { background: #9c27b0; }
+  .subject-economics { background: #ff9800; }
+
+  /* Responsive tweaks */
+  @media (max-width: 600px) {
+    .bar, .day-label {
+      max-width: 24px;
+    }
+    .bars {
+      height: 120px;
+    }
+    .subject-name {
+      font-size: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>📅 7-Day Progress per Subject</h1>
+<div id="chart-container"></div>
+<div class="days-labels" id="days-labels"></div>
+
+<script>
+// Subjects and their related IDs + color classes
+const subjects = [
+  { name: "Science", ids: ["chem1","acidbase","metals","carbon","lifeproc","control","repro","heredity","light","eye","electricity","magnetism","enviro"], className: "subject-science" },
+  { name: "History", ids: ["history1","history2","history3","history4","history5"], className: "subject-history" },
+  { name: "Geography", ids: ["geo1","geo2","geo3","geo4","geo5","geo6","geo7"], className: "subject-geography" },
+  { name: "Civics", ids: ["civics1","civics2","civics3","civics4","civics5"], className: "subject-civics" },
+  { name: "Economics", ids: ["eco1","eco2","eco3","eco4"], className: "subject-economics" }
+];
+
+// Helper: get last 7 dates (yyyy-mm-dd) and short weekday names
+function getLast7Days() {
+  const days = [];
+  const labels = [];
+  for(let i=6; i>=0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const iso = d.toISOString().split("T")[0];
+    days.push(iso);
+    labels.push(d.toLocaleDateString(undefined, { weekday: 'short' }));
+  }
+  return { days, labels };
+}
+
+const { days, labels } = getLast7Days();
+
+// Build days labels under the graph
+const daysLabelsContainer = document.getElementById("days-labels");
+daysLabelsContainer.innerHTML = '';
+labels.forEach(dayLabel => {
+  const div = document.createElement("div");
+  div.className = "day-label";
+  div.textContent = dayLabel;
+  daysLabelsContainer.appendChild(div);
+});
+
+const container = document.getElementById("chart-container");
+
+// For each subject, count checked tasks per day (from localStorage)
+subjects.forEach(subject => {
+  // Initialize counts per day
+  const counts = days.map(() => 0);
+
+  // Scan localStorage keys relevant to this subject
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    const val = localStorage.getItem(key);
+
+    // Only keys starting with subject's ids, and values matching a day in last 7 days count
+    if(subject.ids.some(id => key.startsWith(id + "-")) && days.includes(val)) {
+      // Find index of date and increment count
+      const idx = days.indexOf(val);
+      if(idx !== -1) counts[idx]++;
+    }
+  }
+
+  // Maximum count to scale bars proportionally (avoid too tall bars)
+  const maxCount = Math.max(...counts, 1);
+
+  // Create subject row container
+  const subjectRow = document.createElement("div");
+  subjectRow.className = "subject-row";
+
+  // Subject name
+  const nameDiv = document.createElement("div");
+  nameDiv.className = "subject-name";
+  nameDiv.textContent = subject.name;
+  subjectRow.appendChild(nameDiv);
+
+  // Bars container
+  const barsDiv = document.createElement("div");
+  barsDiv.className = "bars";
+
+  // Create bars for each day
+  counts.forEach((count, idx) => {
+    const bar = document.createElement("div");
+    bar.className = "bar " + subject.className;
+    // Height scaled to max 140px (adjust as needed)
+    bar.style.height = `${(count / maxCount) * 140}px`;
+    bar.setAttribute("data-count", count);
+
+    // Add day label above bar, bold
+    const dayLabelTop = document.createElement("div");
+    dayLabelTop.className = "day-label-top";
+    dayLabelTop.textContent = labels[idx];
+    bar.prepend(dayLabelTop);
+
+    barsDiv.appendChild(bar);
+  });
+
+  subjectRow.appendChild(barsDiv);
+  container.appendChild(subjectRow);
+});
+</script>
+
+</body>
+</html>

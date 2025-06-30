@@ -1,0 +1,235 @@
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #f0f0f0;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 8px #00fff2;
+    z-index: 10000;
+  }
+
+  /* Floating Glowing Circles */
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+    pointer-events: none;
+    animation: float 20s linear infinite, pulse 3s ease-in-out infinite alternate;
+    mix-blend-mode: screen;
+    filter: blur(10px);
+    z-index: 0;
+  }
+
+  .circle:nth-child(1) { background: #00fff2; width: 200px; height: 200px; top: 10%; left: 10%; animation-delay: 0s; }
+  .circle:nth-child(2) { background: #ff00d4; width: 180px; height: 180px; top: 40%; left: 70%; animation-delay: 2s; }
+  .circle:nth-child(3) { background: #00ff8c; width: 150px; height: 150px; top: 70%; left: 30%; animation-delay: 4s; }
+  .circle:nth-child(4) { background: #ff6f00; width: 120px; height: 120px; top: 20%; left: 80%; animation-delay: 6s; }
+  .circle:nth-child(5) { background: #8e44ad; width: 180px; height: 180px; top: 80%; left: 10%; animation-delay: 8s; }
+
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-30px) translateX(30px); }
+    100% { transform: translateY(0) translateX(0); }
+  }
+
+  @keyframes pulse {
+    from { opacity: 0.2; transform: scale(1); }
+    to { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  main {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 213, 0.1);
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 28px;
+    text-align: center;
+    color: #00ffd5;
+  }
+
+  textarea {
+    width: 100%;
+    height: 150px;
+    background: #111;
+    border: 1px solid #333;
+    color: #f0f0f0;
+    padding: 10px;
+    border-radius: 6px;
+    resize: vertical;
+    font-size: 16px;
+  }
+
+  button {
+    background: #00ffd5;
+    color: #000;
+    border: none;
+    padding: 10px 16px;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #00c1a9;
+  }
+
+  .quote {
+    font-style: italic;
+    color: #ccc;
+    margin-top: 10px;
+  }
+#lock.hovered {
+  background-color: #aaf;
+  border-color: #00f;
+}
+
+#lock:active {
+  box-shadow: 0 0 15px #00f;
+}
+
+  .entries-section {
+    margin-top: 30px;
+  }
+
+  .entries-section h2 {
+    color: #00ffd5;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  #entriesList p {
+    background: #2b2b2b;
+    border-left: 4px solid #00ffd5;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  #entriesList p:hover {
+    background: #3c3c3c;
+  }
+
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+  }
+
+  .modal-content {
+    background: #1e1e1e;
+    margin: 8% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    color: #eee;
+    position: relative;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #00ffd5;
+  }
+
+  .modal-content textarea {
+    height: 200px;
+    width: 100%;
+    margin-top: 10px;
+    background: #111;
+    color: white;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .modal-content button {
+    margin-top: 10px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    main {
+      margin: 40px 20px;
+      padding: 15px;
+    }
+
+    h1 {
+      font-size: 22px;
+    }
+
+    button {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+
+    textarea {
+      font-size: 14px;
+      height: 120px;
+    }
+
+    .entries-section h2 {
+      font-size: 18px;
+    }
+
+    #entriesList p {
+      font-size: 14px;
+      padding: 8px;
+    }
+
+    .modal-content {
+      width: 90%;
+      padding: 15px;
+    }
+
+    .modal-content textarea {
+      height: 150px;
+      font-size: 14px;
+    }
+
+    .close {
+      font-size: 20px;
+      top: 8px;
+      right: 10px;
+    }
+
+    .circle {
+      width: 100px !important;
+      height: 100px !important;
+      filter: blur(6px);
+    }
+  }
