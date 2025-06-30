@@ -23,7 +23,7 @@
 
     const data = e.dataTransfer.getData('text/plain');
     if (data === 'pd') {
-      window.location.href = 'C:/Users/HP/Desktop/web and games/web based projects/STUDTYTRACKER/jounral.html';
+      window.location.href = 'jounral.html';
     }
   });
 
