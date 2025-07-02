@@ -1,4 +1,3 @@
-
 const defaultData = [
   {
     id: "history1",
