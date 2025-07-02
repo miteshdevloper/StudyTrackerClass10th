@@ -1,4 +1,4 @@
-consle.log('Loaded')
+console.log('Loaded')
 const defaultData = [
   {
     id: "history1",
