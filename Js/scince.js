@@ -1,321 +1,257 @@
-const defaultData = [
+const defaultChapters = [
   {
     id: 'chem1',
     title: 'Chemical Reactions and Equations',
     topics: [
-      { pos: 1, name: 'Chemical Equations' },
-      { pos: 2, name: 'Balanced Chemical Equation' },
-      { pos: 3, name: 'Combination Reaction' },
-      { pos: 4, name: 'Decomposition Reaction' },
-      { pos: 5, name: 'Displacement Reaction' },
-      { pos: 6, name: 'Double Displacement Reaction' },
-      { pos: 7, name: 'Precipitation Reaction' },
-      { pos: 8, name: 'Endothermic and Exothermic Reactions' },
-      { pos: 9, name: 'Oxidation and Reduction (Redox Reactions)' },
-      { pos: 10, name: 'Corrosion and Rancidity' }
+      'Chemical Equations',
+      'Balanced Chemical Equation',
+      'Combination Reaction',
+      'Decomposition Reaction',
+      'Displacement Reaction',
+      'Double Displacement Reaction',
+      'Precipitation Reaction',
+      'Endothermic and Exothermic Reactions',
+      'Oxidation and Reduction (Redox Reactions)',
+      'Corrosion and Rancidity'
     ]
   },
   {
     id: 'acidbase',
     title: 'Acids, Bases and Salts',
     topics: [
-      { pos: 1, name: 'Definitions of Acids and Bases' },
-      { pos: 2, name: 'Indicators' },
-      { pos: 3, name: 'Chemical Properties and Uses' },
-      { pos: 4, name: 'Neutralization Reaction' },
-      { pos: 5, name: 'Concept of pH Scale' },
-      { pos: 6, name: 'Importance of pH in Everyday Life' },
-      { pos: 7, name: 'Preparation and Uses of Common Salts' }
+      'Definitions of Acids and Bases',
+      'Indicators',
+      'Chemical Properties and Uses',
+      'Neutralization Reaction',
+      'Concept of pH Scale',
+      'Importance of pH in Everyday Life',
+      'Preparation and Uses of Common Salts'
     ]
   },
   {
     id: 'metals',
     title: 'Metals and Non-metals',
     topics: [
-      { pos: 1, name: 'Physical Properties of Metals and Non-metals' },
-      { pos: 2, name: 'Chemical Properties of Metals' },
-      { pos: 3, name: 'Reactivity Series' },
-      { pos: 4, name: 'Formation and Properties of Ionic Compounds' },
-      { pos: 5, name: 'Basic Metallurgical Processes' },
-      { pos: 6, name: 'Corrosion and its Prevention' }
+      'Physical Properties of Metals and Non-metals',
+      'Chemical Properties of Metals',
+      'Reactivity Series',
+      'Formation and Properties of Ionic Compounds',
+      'Basic Metallurgical Processes',
+      'Corrosion and its Prevention'
     ]
   },
   {
     id: 'carbon',
     title: 'Carbon and its Compounds',
     topics: [
-      { pos: 1, name: 'Covalent Bonds' },
-      { pos: 2, name: 'Versatile Nature of Carbon' },
-      { pos: 3, name: 'Hydrocarbons' },
-      { pos: 4, name: 'Homologous Series' },
-      { pos: 5, name: 'Nomenclature of Carbon Compounds' },
-      { pos: 6, name: 'Combustion' },
-      { pos: 7, name: 'Oxidation' },
-      { pos: 8, name: 'Addition Reaction' },
-      { pos: 9, name: 'Substitution Reaction' },
-      { pos: 10, name: 'Ethanol and Ethanoic Acid' },
-      { pos: 11, name: 'Soaps and Detergents' }
+      'Covalent Bonds',
+      'Versatile Nature of Carbon',
+      'Hydrocarbons',
+      'Homologous Series',
+      'Nomenclature of Carbon Compounds',
+      'Combustion',
+      'Oxidation',
+      'Addition Reaction',
+      'Substitution Reaction',
+      'Ethanol and Ethanoic Acid',
+      'Soaps and Detergents'
     ]
   },
   {
     id: 'lifeproc',
     title: 'Life Processes',
     topics: [
-      { pos: 1, name: 'Introduction to Life Processes' },
-      { pos: 2, name: 'Modes of Nutrition' },
-      { pos: 3, name: 'Nutrition in Plants' },
-      { pos: 4, name: 'Nutrition in Animals' },
-      { pos: 5, name: 'Aerobic and Anaerobic Respiration' },
-      { pos: 6, name: 'Respiration in Plants and Animals' },
-      { pos: 7, name: 'Transportation in Plants' },
-      { pos: 8, name: 'Transportation in Animals' },
-      { pos: 9, name: 'Excretion in Plants and Animals' }
+      'Introduction to Life Processes',
+      'Modes of Nutrition',
+      'Nutrition in Plants',
+      'Nutrition in Animals',
+      'Aerobic and Anaerobic Respiration',
+      'Respiration in Plants and Animals',
+      'Transportation in Plants',
+      'Transportation in Animals',
+      'Excretion in Plants and Animals'
     ]
   },
   {
     id: 'control',
     title: 'Control and Coordination',
     topics: [
-      { pos: 1, name: 'Tropic Movements in Plants' },
-      { pos: 2, name: 'Plant Hormones' },
-      { pos: 3, name: 'Voluntary, Involuntary, and Reflex Actions' },
-      { pos: 4, name: 'Human Nervous System' },
-      { pos: 5, name: 'Chemical Coordination (Endocrine System)' },
-      { pos: 6, name: 'Animal Hormones' },
-      { pos: 7, name: 'Feedback Mechanism' }
+      'Tropic Movements in Plants',
+      'Plant Hormones',
+      'Voluntary, Involuntary, and Reflex Actions',
+      'Human Nervous System',
+      'Chemical Coordination (Endocrine System)',
+      'Animal Hormones',
+      'Feedback Mechanism'
     ]
   },
   {
     id: 'repro',
     title: 'How Do Organisms Reproduce?',
     topics: [
-      { pos: 1, name: 'Asexual Reproduction' },
-      { pos: 2, name: 'Sexual Reproduction' },
-      { pos: 3, name: 'Sexual Reproduction in Flowering Plants' },
-      { pos: 4, name: 'Reproduction in Human Beings' },
-      { pos: 5, name: 'Reproductive Health' }
+      'Asexual Reproduction',
+      'Sexual Reproduction',
+      'Sexual Reproduction in Flowering Plants',
+      'Reproduction in Human Beings',
+      'Reproductive Health'
     ]
   },
   {
     id: 'heredity',
     title: 'Heredity and Evolution',
     topics: [
-      { pos: 1, name: 'Heredity and Variations' },
-      { pos: 2, name: 'Mendel’s Contribution' },
-      { pos: 3, name: 'Monohybrid and Dihybrid Crosses' },
-      { pos: 4, name: 'Sex Determination' },
-      { pos: 5, name: 'Evolution (Basic Concept)' }
+      'Heredity and Variations',
+      'Mendel’s Contribution',
+      'Monohybrid and Dihybrid Crosses',
+      'Sex Determination',
+      'Evolution (Basic Concept)'
     ]
   },
   {
     id: 'light',
     title: 'Light – Reflection and Refraction',
     topics: [
-      { pos: 1, name: 'Reflection of Light' },
-      { pos: 2, name: 'Laws of Reflection' },
-      { pos: 3, name: 'Images Formed by Plane Mirrors' },
-      { pos: 4, name: 'Spherical Mirrors and Their Images' },
-      { pos: 5, name: 'Mirror Formula and Magnification' },
-      { pos: 6, name: 'Refraction of Light' },
-      { pos: 7, name: 'Laws of Refraction' },
-      { pos: 8, name: 'Refractive Index' },
-      { pos: 9, name: 'Refraction through Spherical Lenses' },
-      { pos: 10, name: 'Lens Formula and Power of a Lens' }
+      'Reflection of Light',
+      'Laws of Reflection',
+      'Images Formed by Plane Mirrors',
+      'Spherical Mirrors and Their Images',
+      'Mirror Formula and Magnification',
+      'Refraction of Light',
+      'Laws of Refraction',
+      'Refractive Index',
+      'Refraction through Spherical Lenses',
+      'Lens Formula and Power of a Lens'
     ]
   },
   {
     id: 'eye',
     title: 'The Human Eye and the Colourful World',
     topics: [
-      { pos: 1, name: 'Structure of the Human Eye' },
-      { pos: 2, name: 'Defects of Vision and their Correction' },
-      { pos: 3, name: 'Refraction of Light through a Prism' },
-      { pos: 4, name: 'Dispersion of Light' },
-      { pos: 5, name: 'Atmospheric Refraction' },
-      { pos: 6, name: 'Scattering of Light' }
+      'Structure of the Human Eye',
+      'Defects of Vision and their Correction',
+      'Refraction of Light through a Prism',
+      'Dispersion of Light',
+      'Atmospheric Refraction',
+      'Scattering of Light'
     ]
   },
   {
     id: 'electricity',
     title: 'Electricity',
     topics: [
-      { pos: 1, name: 'Electric Current' },
-      { pos: 2, name: 'Electric Potential and Potential Difference' },
-      { pos: 3, name: 'Ohm’s Law' },
-      { pos: 4, name: 'Resistance and Resistivity' },
-      { pos: 5, name: 'Resistors in Series and Parallel' },
-      { pos: 6, name: 'Heating Effect of Electric Current' },
-      { pos: 7, name: 'Electric Power' },
-      { pos: 8, name: 'Commercial Unit of Electrical Energy' }
+      'Electric Current',
+      'Electric Potential and Potential Difference',
+      'Ohm’s Law',
+      'Resistance and Resistivity',
+      'Resistors in Series and Parallel',
+      'Heating Effect of Electric Current',
+      'Electric Power',
+      'Commercial Unit of Electrical Energy'
     ]
   },
   {
     id: 'magnetism',
     title: 'Magnetic Effects of Electric Current',
     topics: [
-      { pos: 1, name: 'Magnetic Field and Field Lines' },
-      { pos: 2, name: 'Magnetic Field due to a Current-Carrying Conductor' },
-      { pos: 3, name: 'Force on a Current-Carrying Conductor' },
-      { pos: 4, name: 'Electric Motor' },
-      { pos: 5, name: 'Electromagnetic Induction' },
-      { pos: 6, name: 'Electric Generator' },
-      { pos: 7, name: 'Direct Current and Alternating Current' },
-      { pos: 8, name: 'Domestic Electric Circuits' }
+      'Magnetic Field and Field Lines',
+      'Magnetic Field due to a Current-Carrying Conductor',
+      'Force on a Current-Carrying Conductor',
+      'Electric Motor',
+      'Electromagnetic Induction',
+      'Electric Generator',
+      'Direct Current and Alternating Current',
+      'Domestic Electric Circuits'
     ]
   },
   {
     id: 'enviro',
     title: 'Our Environment',
     topics: [
-      { pos: 1, name: 'Ecosystem and Its Components' },
-      { pos: 2, name: 'Food Chain and Food Web' },
-      { pos: 3, name: 'Trophic Levels and Energy Flow' },
-      { pos: 4, name: 'Bioaccumulation and Biomagnification' },
-      { pos: 5, name: 'Ozone Layer and its Depletion' },
-      { pos: 6, name: 'Waste Production and Management' }
+      'Ecosystem and Its Components',
+      'Food Chain and Food Web',
+      'Trophic Levels and Energy Flow',
+      'Bioaccumulation and Biomagnification',
+      'Ozone Layer and its Depletion',
+      'Waste Production and Management'
     ]
   }
 ];
 
-let data = JSON.parse(localStorage.getItem('scienceProgress')) || [];
 const container = document.getElementById('chapters');
 
-function saveData() {
-  localStorage.setItem('scienceProgress', JSON.stringify(data));
+function getTodayDateString() {
+  const now = new Date();
+  return now.toISOString().split("T")[0];
 }
 
-function render() {
-  container.innerHTML = '';
-  data.forEach((chap, chapIndex) => {
-    const section = document.createElement('section');
-    section.innerHTML = `
-      <h2 contenteditable="true" oninput="updateTitle(${chapIndex}, this.innerText)">${chap.title}</h2>
-      <div class="progress-container">
-        <div class="progress-bar" id="progress-${chap.id}">0%</div>
-      </div>
-      <button onclick="addTopic(${chapIndex})">Add Topic</button>
-      <div class="table-container">
-        <table id="table-${chap.id}">
-          <thead>
-            <tr>
-              <th>Pos</th>
-              <th>Topic</th>
-              <th>Video</th>
-              <th>Notes</th>
-              <th>Questions</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
+// Render sections
+defaultChapters.forEach((chap) => {
+  const section = document.createElement('section');
+  section.innerHTML = `
+    <h2>${chap.title}</h2>
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-${chap.id}">0%</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Topic</th>
+          <th>Question</th>
+          <th>Notes</th>
+          <th>Video</th>
+        </tr>
+      </thead>
+      <tbody id="table-${chap.id}"></tbody>
+    </table>
+  `;
+  container.appendChild(section);
+
+  const tbody = document.getElementById(`table-${chap.id}`);
+  chap.topics.forEach((topic, i) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${topic}</td>
+      <td><input type="checkbox" data-id="${chap.id}-${i}-solved"></td>
+      <td><input type="checkbox" data-id="${chap.id}-${i}-notes"></td>
+      <td><input type="checkbox" data-id="${chap.id}-${i}-video"></td>
     `;
-    container.appendChild(section);
-    renderTopics(chapIndex);
+    tbody.appendChild(row);
   });
-}
+});
 
-function renderTopics(chapIndex) {
-  const chap = data[chapIndex];
-  const tbody = document.querySelector(`#table-${chap.id} tbody`);
-  tbody.innerHTML = '';
+// Load and save progress
+document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+  const key = cb.dataset.id;
+  if (localStorage.getItem(key)) cb.checked = true;
 
-  chap.topics.forEach((topic, topicIndex) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td contenteditable="true" oninput="updatePos(${chapIndex}, ${topicIndex}, this.innerText)">${topic.pos}</td>
-      <td contenteditable="true" oninput="updateTopic(${chapIndex}, ${topicIndex}, this.innerText)">${topic.name}</td>
-      <td><input type="checkbox" data-id="${chap.id}-${topicIndex}-0"></td>
-      <td><input type="checkbox" data-id="${chap.id}-${topicIndex}-1"></td>
-      <td><input type="checkbox" data-id="${chap.id}-${topicIndex}-2"></td>
-    `;
-    tbody.appendChild(tr);
-
-    let clickCount = 0;
-    let clickTimer = null;
-    tr.addEventListener('click', () => {
-      clickCount++;
-      if (clickCount === 3) {
-        if (confirm("Do you want to delete this topic?")) {
-          deleteTopic(chapIndex, topicIndex);
-        }
-        clearTimeout(clickTimer);
-        clickCount = 0;
-      } else {
-        clearTimeout(clickTimer);
-        clickTimer = setTimeout(() => { clickCount = 0; }, 600);
-      }
-    });
-
-    tr.querySelectorAll('input[type=checkbox]').forEach(cb => {
-      const saved = localStorage.getItem(cb.dataset.id);
-      if (saved) cb.checked = true;
-
-      cb.onchange = () => {
-        if (cb.checked) {
-          localStorage.setItem(cb.dataset.id, new Date().toISOString().split("T")[0]);
-        } else {
-          localStorage.removeItem(cb.dataset.id);
-        }
-        updateProgress(chap.id);
-      };
-    });
+  cb.addEventListener('change', () => {
+    const today = getTodayDateString();
+    if (cb.checked) {
+      localStorage.setItem(key, today);
+    } else {
+      localStorage.removeItem(key);
+    }
+    updateProgress(key.split('-')[0]);
   });
 
-  updateProgress(chap.id);
-}
-
-function addTopic(chapIndex) {
-  const name = prompt("Enter topic name:");
-  if (name && name.trim()) {
-    data[chapIndex].topics.push({ pos: data[chapIndex].topics.length + 1, name: name.trim() });
-    saveData();
-    render();
-  }
-}
-
-function deleteTopic(chapIndex, topicIndex) {
-  data[chapIndex].topics.splice(topicIndex, 1);
-  saveData();
-  render();
-}
-
-function updateTitle(chapIndex, text) {
-  data[chapIndex].title = text.trim();
-  saveData();
-}
-
-function updateTopic(chapIndex, topicIndex, text) {
-  data[chapIndex].topics[topicIndex].name = text.trim();
-  saveData();
-}
-
-function updatePos(chapIndex, topicIndex, text) {
-  let num = parseInt(text);
-  if (!isNaN(num) && num > 0) {
-    data[chapIndex].topics[topicIndex].pos = num;
-    data[chapIndex].topics.sort((a, b) => a.pos - b.pos);
-    saveData();
-    render();
-  }
-}
+  updateProgress(cb.dataset.id.split('-')[0]);
+});
 
 function updateProgress(chapId) {
-  const boxes = document.querySelectorAll(`input[data-id^="${chapId}-"]`);
-  const total = boxes.length;
-  let checked = 0;
-  boxes.forEach(b => { if (b.checked) checked++; });
+  const checkboxes = document.querySelectorAll(`input[data-id^="${chapId}-"]`);
+  const total = checkboxes.length;
+  const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
   const percent = total ? Math.round((checked / total) * 100) : 0;
+
   const bar = document.getElementById(`progress-${chapId}`);
-  bar.style.width = percent + '%';
-  bar.textContent = percent + '%';
+  bar.style.width = `${percent}%`;
+  bar.textContent = `${percent}%`;
 
   const rewardKey = `rewarded-${chapId}`;
-  if (percent === 100 && localStorage.getItem(rewardKey) !== 'true') {
+  if (percent === 100 && !localStorage.getItem(rewardKey)) {
     showReward();
     localStorage.setItem(rewardKey, 'true');
-  }
-
-  if (percent < 100) {
+  } else if (percent < 100) {
     localStorage.removeItem(rewardKey);
   }
 }
@@ -339,9 +275,7 @@ function showReward() {
 
   const audio = document.getElementById('reward-audio');
   if (audio) {
-    audio.play().catch(() => {
-      console.log('Audio playback blocked.');
-    });
+    audio.play().catch(() => console.log('Audio playback blocked.'));
   }
 
   reward.style.transition = 'opacity 0.5s ease';
@@ -350,4 +284,33 @@ function showReward() {
   setTimeout(() => { reward.remove(); }, 3000);
 }
 
-render();
+// Editable <h2> and <td>
+document.addEventListener('click', (e) => {
+  const target = e.target;
+  if (target.tagName === 'H2' || (target.tagName === 'TD' && target.cellIndex === 0)) {
+    makeEditable(target);
+  }
+});
+
+function makeEditable(element) {
+  const originalText = element.textContent;
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.value = originalText;
+  input.style.width = '100%';
+  input.style.fontSize = 'inherit';
+
+  element.replaceWith(input);
+  input.focus();
+
+  input.addEventListener('blur', () => {
+    const newText = input.value.trim() || originalText;
+    const newEl = document.createElement(element.tagName);
+    newEl.textContent = newText;
+    input.replaceWith(newEl);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') input.blur();
+  });
+}
