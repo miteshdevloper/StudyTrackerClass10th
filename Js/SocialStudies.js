@@ -243,7 +243,12 @@ const defaultData = [
   }
 ];
 
-let data = JSON.parse(localStorage.getItem('sstProgress')) || [];
+let data = JSON.parse(localStorage.getItem('sstProgress'));
+if (!data || !Array.isArray(data) || data.length === 0) {
+  data = defaultData;
+  saveData();
+}
+console.log("Loaded chapters:", data);
 
 const container = document.getElementById('chapters');
 
@@ -418,5 +423,7 @@ function showReward() {
   setTimeout(() => { reward.remove(); }, 3000);
 }
 
-// Initial render
-render();
+// Wait for DOM to load before rendering
+document.addEventListener("DOMContentLoaded", function () {
+  render();
+});
